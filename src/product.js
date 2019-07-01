@@ -22,11 +22,14 @@ export const ProductItem = props => {
 export const ProductList = ({
   products
 }) => (
-  <ul>
-    {
-      products.map(({ name, id, price }) => (
-        <ProductItem key={`product-${id}`} id={id} name={name} price={price} />
-      ))
-    }
-  </ul>
+  <div className="product-wrapper">
+    <h2>Our Latest Products</h2>
+    <ul>
+      {
+        products.map(({ name, id, price }) => (
+          <ProductItem key={`product-${id}`} id={id} name={name} price={price} />
+        ))
+      }
+    </ul>
+  </div>
 );

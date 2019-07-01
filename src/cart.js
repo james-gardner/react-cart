@@ -1,4 +1,5 @@
 import React from 'react';
+import getSymbolFromCurrency from 'currency-symbol-map'
 import useStateValue from './state';
 import PriceTag from './priceTag'
 
@@ -7,17 +8,42 @@ import PriceTag from './priceTag'
  * Wrapper for cart items.
  * I've used this as a presentational place holder as it doesn't really do much right now.
  */
-export const CartWrapper = ({ children }) => (
-  <div className="cart-wrapper">
-    {children}
-    <CartTotal />
-  </div>
-);
+export const CartWrapper = ({ children }) => {
+  return (
+    <div className="cart-wrapper">
+      <h2>Items in your cart:</h2>
+      {children}
+      <CartTotal />
+    </div>
+  );
+  }
 
 /**
+ * Display total based on quantity and price.
+ * I've tried to localise this from the global state currency settings. Going forward it might be
+ * better to use a HOC rather than cutting concerns.
  */
 const CartTotal = () => {
+  const [ state ] = useStateValue();
 
+  const {
+    cart: {
+      items
+    },
+    currency: {
+      code,
+      rate
+    }
+  } = state;
+
+  /* Rounding is likely to be off here. */
+  const total = items.reduce((memo, item) => {
+    const subTotal = item.quantity * item.price * rate
+
+    return memo + subTotal;
+  }, 0)
+
+  return <span>Total: {getSymbolFromCurrency(code)}{total.toFixed(2)}</span>
 };
 
 /**
@@ -51,7 +77,7 @@ export const CartItem = ({
   price,
   quantity
 }) => (
-  <li>{name} - {quantity} @ <PriceTag price={price} /> each</li>
+  <li>{name} x {quantity} @ <PriceTag price={price} /> each</li>
 );
 
 /**

@@ -4,9 +4,10 @@ import cartReducer, {
   CartWrapper,
   CartItems
 } from './cart'
-import {
-  ProductList
-} from './product'
+import { ProductList } from './product'
+import currencyReducer, {
+  CurrencySelector
+} from './currency';
 
 /**
  * Simulate a remote call to something that returns products.
@@ -34,9 +35,10 @@ const App = () => {
     }
   };
 
-  const reducer = ({ cart, ...state }, action) => {
+  const reducer = ({ cart, currency, ...state }, action) => {
     return {
       cart: cartReducer(cart, action),
+      currency: currencyReducer(currency, action),
       ...state
     }
   };
@@ -44,10 +46,13 @@ const App = () => {
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
       <div className="App">
+        <header>
+          <h1>Welcome to our Store</h1>
+        </header>
+        <CurrencySelector />
         <CartWrapper>
           <CartItems />
         </CartWrapper>
-        <h2>Products</h2>
         <ProductList products={products} />
       </div>
     </StateProvider>

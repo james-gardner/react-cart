@@ -31,5 +31,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "expect": "^24.8.0",
+    "mocha": "^6.1.4"
   }
 }
