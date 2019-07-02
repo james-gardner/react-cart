@@ -14,7 +14,7 @@ import currencyReducer, {
  */
 const getProducts = () => [
   { id: '0000001', name: 'Peas', price: 0.95 },
-  { id: '0000002', name: 'Eggs', price: 2.10 },
+  { id: '0000002', name: 'Eggs (Dozen)', price: 2.10 },
   { id: '0000003', name: 'Milk', price: 1.30 },
   { id: '0000004', name: 'Beans', price: 0.73 }
 ];
@@ -32,7 +32,10 @@ const App = () => {
     currency: {
       code: 'GBP',
       rate: 1.0
-    }
+    },
+
+    // Use this to toggle components based on a 'checkout' mode if needed.
+    checkout: false
   };
 
   const reducer = ({ cart, currency, ...state }, action) => {

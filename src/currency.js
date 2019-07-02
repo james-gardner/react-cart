@@ -6,7 +6,7 @@ import useStateValue from './state';
 
 export const CurrencySelector = () => {
   /* eslint-disable-next-line */
-  const [ _, dispatch ] = useStateValue();
+  const [ globalState, dispatch ] = useStateValue();
 
   /* Hard-coded for now. Suggest we bring this in from config */
   const url = 'https://api.exchangeratesapi.io/latest?base=GBP';
@@ -60,10 +60,11 @@ export const CurrencySelector = () => {
     })
   }
 
+  /* FIXME: Reliant on the currency rate rather than the code. Rate might not be unique. */
   return (
     <div className="currency-selector">
       <span>Select Currency: </span>
-      <select onChange={onChange}>
+      <select onChange={onChange} value={globalState.currency.rate}>
       {
         state.currencies.map(({code, rate}) => (
           <option key={`currency-${code}`} value={rate}>{code}</option>

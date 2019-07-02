@@ -32,3 +32,24 @@ ul {
 .product-wrapper, .cart-wrapper {
   padding: 1rem;
 }
+
+
+
+.cart-wrapper button,
+.product-wrapper button {
+  float:right;
+}
+
+.line-item, .cart-item {
+  width: 100%;
+  padding: 5px 0;
+  overflow: hidden;
+}
+
+.line-item {
+  border-bottom: 1px solid grey;
+}
+
+.line-item:first-of-type {
+  border-top: 1px solid grey;
+}

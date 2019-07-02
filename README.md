@@ -1,5 +1,22 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Notes about the technical test
+
+I've used React and Hooks to demonstrate how I might put a basic shopping cart application together. I think React's a good fit because you can model your code around user interactions and the resulting state.
+
+Rather than diving into Redux for state management I've chosen to use hooks to achieve practically the same thing. There's a dedicated 'reducer' for managing the state changes to the cart itself and another for currency.
+
+I've tried to timebox this technical test to demonstrate the technology choice and approach.
+
+The spec says:
+
+"The user can click on a checkout button which will then display the total price for the basket with the option to display the amount in different currencies. For example, if the basket contained Milk and the currency selected was USD with an exchange rate of 1.5, the total would be $1.95 USD."
+
+I've chosen to show the total as items are added to the cart. The reasoning behind that is that you know how much you're spending before you checkout. Introducing a checkout button would be trivial in any case because of the way that the app is organised. The currency selector is also displayed as a permanent fixture which I acknowledge you wanted displayed on the checkout page.
+
+
+Please ensure that you have node installed and run ```npm i``` when you've cloned/downloaded from this repo.
+
 ## Available Scripts
 
 In the project directory, you can run:

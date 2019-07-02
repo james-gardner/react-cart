@@ -89,7 +89,7 @@ export const CartItem = props => {
   } = props;
 
   return (
-    <li>{name} x {quantity} @ <PriceTag price={price} /> each <RemoveFromCartButton product={props} /></li>
+    <li className="cart-item">{name} x {quantity} @ <PriceTag price={price} /> each <RemoveFromCartButton product={props} /></li>
   );
 }
 
@@ -122,9 +122,9 @@ export const AddToCartButton = ({
 };
 
 AddToCartButton.propTypes = {
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  quantity: PropTypes.number.isRequired
+  name: PropTypes.string,
+  price: PropTypes.number,
+  quantity: PropTypes.number
 };
 
 /**
@@ -150,9 +150,9 @@ export const RemoveFromCartButton = ({
 };
 
 RemoveFromCartButton.propTypes = {
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  quantity: PropTypes.number.isRequired
+  name: PropTypes.string,
+  price: PropTypes.number,
+  quantity: PropTypes.number
 };
 
 /**

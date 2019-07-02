@@ -12,7 +12,7 @@ export const ProductItem = props => {
   const { name, price } = props;
 
   return (
-    <li>{name} - <PriceTag price={price} /> - <AddToCartButton product={props} /></li>
+    <li className="line-item">{name} - <PriceTag price={price} /> <AddToCartButton product={props} /></li>
   );
 };
 
