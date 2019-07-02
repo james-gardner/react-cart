@@ -72,19 +72,23 @@ export const CartItems = () => {
 /**
  * Render a basic cart item.
  */
-export const CartItem = ({
-  name,
-  price,
-  quantity
-}) => (
-  <li>{name} x {quantity} @ <PriceTag price={price} /> each</li>
-);
+export const CartItem = props => {
+  const {
+    name,
+    price,
+    quantity
+  } = props;
+
+  return (
+    <li>{name} x {quantity} @ <PriceTag price={price} /> each <RemoveFromCartButton product={props} /></li>
+  );
+}
 
 /**
  * Button component for 'add to cart' functonality.
  * Wired into context so that it's possible to dispatch without prop-drilling.
  */
-export const CartButton = ({
+export const AddToCartButton = ({
   product
 }) => {
   /* eslint-disable-next-line */
@@ -100,21 +104,47 @@ export const CartButton = ({
       Add to Cart
     </button>
   );
-}
+};
+
+export const RemoveFromCartButton = ({
+  product
+}) => {
+  /* eslint-disable-next-line */
+  const [ state, dispatch ] = useStateValue();
+
+  const action = product => dispatch({
+    type: 'DEL_ITEM',
+    payload: product
+  })
+
+  return (
+    <button onClick={() => action(product)}>
+      Remove
+    </button>
+  );
+};
+
+
 
 /**
  * Cart reducer.
  * Handles CRUD on cart state segment.
+ *
+ * TODO: Refactor manipulation methods:
+ * https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns
  */
 export default (state, action) => {
   const { payload } = action;
 
+
+  /* Check if product exists in cart items. Both ops currently require this. */
+  const index = state.items.findIndex(item => {
+    return item.id === payload.id
+  });
+
   switch (action.type) {
     case 'ADD_ITEM':
-      // Check if product exists in cart items.
-      const index = state.items.findIndex(item => item.id === payload.id);
-
-      // Not found. Add to items.
+      /* Not found. Add to items.*/
       if (index === -1) {
         return {
           ...state,
@@ -122,7 +152,7 @@ export default (state, action) => {
         }
       }
 
-      // Found. Update quantity.
+      /* Found. Update quantity. */
       return {
         ...state,
         items: state.items.map(item => {
@@ -135,6 +165,29 @@ export default (state, action) => {
       }
 
     case 'DEL_ITEM':
+      /* Note Found. Ignore. */
+      if (index === -1) return state;
+
+      const item = state.items[index];
+
+      if (item.quantity === 1) {
+        return {
+          ...state,
+          items: state.items.filter((item, i) => i !== index)
+        }
+      }
+
+      return {
+        ...state,
+        items: state.items.map(item => {
+          if (item.id === payload.id) {
+            item.quantity = item.quantity - 1;
+          }
+
+          return item;
+        })
+      }
+
     default:
       return state;
   }

@@ -1,5 +1,6 @@
 import React from 'react';
-import { CartButton } from './cart';
+import PropTypes from 'prop-types';
+import { AddToCartButton } from './cart';
 import PriceTag from './priceTag';
 
 
@@ -11,9 +12,14 @@ export const ProductItem = props => {
   const { name, price } = props;
 
   return (
-    <li>{name} - <PriceTag price={price} /> - <CartButton product={props} /></li>
+    <li>{name} - <PriceTag price={price} /> - <AddToCartButton product={props} /></li>
   );
 };
+
+ProductItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired
+}
 
 /**
  * Render a basic list of products.
@@ -33,3 +39,13 @@ export const ProductList = ({
     </ul>
   </div>
 );
+
+ProductList.propTypes = {
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired
+    })
+  )
+};

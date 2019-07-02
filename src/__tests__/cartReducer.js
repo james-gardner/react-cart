@@ -97,7 +97,7 @@ describe('cart reducer', () => {
       ]
     }, {
       type: 'DEL_ITEM',
-      payload: {}
+      payload: { id: '0000004', name: 'Beans', price: 0.73, quantity: 1 }
     })).toEqual({
       items: [
         { id: '0000001', name: 'Peas', price: 0.95, quantity: 5 }
