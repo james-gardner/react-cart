@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import getSymbolFromCurrency from 'currency-symbol-map'
 import useStateValue from './state';
 import PriceTag from './priceTag'
@@ -16,7 +17,15 @@ export const CartWrapper = ({ children }) => {
       <CartTotal />
     </div>
   );
-  }
+};
+
+CartWrapper.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired
+};
+
 
 /**
  * Display total based on quantity and price.
@@ -84,6 +93,12 @@ export const CartItem = props => {
   );
 }
 
+CartItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired
+};
+
 /**
  * Button component for 'add to cart' functonality.
  * Wired into context so that it's possible to dispatch without prop-drilling.
@@ -106,6 +121,16 @@ export const AddToCartButton = ({
   );
 };
 
+AddToCartButton.propTypes = {
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired
+};
+
+/**
+ * TODO: This is very similar to AddToCart so it might be possible to wrap a generic
+ * button with a dispatch call and label (currying?).
+ */
 export const RemoveFromCartButton = ({
   product
 }) => {
@@ -124,7 +149,11 @@ export const RemoveFromCartButton = ({
   );
 };
 
-
+RemoveFromCartButton.propTypes = {
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired
+};
 
 /**
  * Cart reducer.

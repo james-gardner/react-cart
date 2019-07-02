@@ -33,8 +33,9 @@ export const CurrencySelector = () => {
         setState({
           currencies: map(res.data.rates, (rate, code) => ({ code, rate }))
         });
-      } catch (error) {
-        console.log(error)
+      } catch (err) {
+        // TODO. Capture with error boundary.
+        throw err;
       }
     };
 

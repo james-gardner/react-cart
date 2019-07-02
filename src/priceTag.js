@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import getSymbolFromCurrency from 'currency-symbol-map'
 import useStateValue from './state';
 
@@ -6,7 +7,7 @@ import useStateValue from './state';
 /**
  * State-aware component to render price based on the currently selected currency.
  */
-export default ({ price }) => {
+const PriceTag = ({ price }) => {
   const [ state ] = useStateValue();
 
   const {
@@ -23,3 +24,9 @@ export default ({ price }) => {
     <span>{getSymbolFromCurrency(code)}{value.toFixed(2)}</span>
   );
 }
+
+PriceTag.propTypes = {
+  price: PropTypes.number.isRequired
+};
+
+export default PriceTag;
